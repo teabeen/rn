@@ -1,25 +1,17 @@
 #include <stdio.h>
 
-
-
 int main(int argc, char *argv[]) {
-
-
-    if (argc < 2) {
-        printf("Usage: %s <filename> <new filename>", argv[1]);
+    if (argc != 3) {
+        printf("Usage: %s <old_filename> <new_filename>\n", argv[0]);
         return 1;
-
-    } else {
-        if (rename(argv[1], argv[2])) {
-            return 0;
-        } else {
-            return 1;
-        }
     }
 
-
-    return 0;
-
-
-
+    if (rename(argv[1], argv[2]) == 0) {
+        printf("Renamed %s to %s successfully.\n", argv[1], argv[2]);
+        return 0;
+    } else {
+        perror("rename failed");
+        return 1;
+    }
 }
+
